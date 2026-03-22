@@ -26,51 +26,55 @@ This project automates candidate evaluation using logic-based filtering and rank
 
 ## How to Run
 
-### For C:
+### For C
+#include <stdio.h>
 
-#include<stdio.h>
-int main()
-{
-int n,i;
-printf("Enter the number of candidates:");
-scanf("%d",&n);
-int exp[n],skill[n],score[n];
-char name[n][50];
+int main() {
+    int n, i;
+    
+    printf("Enter number of candidates: ");
+    scanf("%d", &n);
 
-#input Details
-for(i=0;i<n;i++)
-{
-printf("\n Candidate %dName:",i+1)
-scanf("%s",name[i]);
-printf("experience: ");
-scanf("%d",&exp[i]);
-printf("skill score(0-100):");
-scanf("%d",&skill[i]);
+    char name[n][50];
+    int marks[n], experience[n];
+    float score[n];
+
+    // Input details
+    for(i = 0; i < n; i++) {
+        printf("\nCandidate %d\n", i + 1);
+
+        printf("Enter name: ");
+        scanf("%s", name[i]);
+
+        printf("Enter marks (out of 100): ");
+        scanf("%d", &marks[i]);
+
+        printf("Enter experience (years): ");
+        scanf("%d", &experience[i]);
+
+        // Simple scoring formula
+        score[i] = marks[i] * 0.7 + experience[i] * 0.3;
+    }
+
+    // Display results
+    printf("\n--- Candidate Scores ---\n");
+    for(i = 0; i < n; i++) {
+        printf("%s -> Score: %.2f\n", name[i], score[i]);
+    }
+
+    // Find best candidate
+    int best = 0;
+    for(i = 1; i < n; i++) {
+        if(score[i] > score[best]) {
+            best = i;
+        }
+    }
+
+    printf("\n Selected Candidate: %s with score %.2f\n", name[best], score[best]);
+
+    return 0;
 }
-int req-exp,req-skill;
-printf("\n Enter required experience:");
-scanf("%d",&req-exp);
-printf("\n Enter required skill score:");
-scanf("%d",&req-skill);
-for(i=0;i<n;i++)
-{
-    score[i]=(exp[i]*10)+skill[i]
-}
-#Find Best Candidate 
-int max=0;
-for(i=1;i<n;i++)
-{
-if(score[i]>score[max])
-{
-    max=i;
-}
-}
-#Output 
-printf("\nest Candidate:\n");
-printf("Name:%s\n",name[max]);
-printf("Score:%d\n",score[max]);
-return 0;
-}
+
 
 ##Team Member
 Ann Mariya Mathew
