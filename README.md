@@ -28,49 +28,45 @@ This project automates candidate evaluation using logic-based filtering and rank
 
 ### For C
 #include <stdio.h>
+#include<string.h>
 
 int main() {
     int n, i;
-    
+
     printf("Enter number of candidates: ");
     scanf("%d", &n);
 
-    char name[n][50];
-    int marks[n], experience[n];
-    float score[n];
+    char name[50];
+    int marks, experience;
+    float score, maxScore = 0;
+    char bestName[50];
 
-    // Input details
-    for(i = 0; i < n; i++) {
-        printf("\nCandidate %d\n", i + 1);
+    for(i = 1; i <= n; i++) {
+        printf("\nCandidate %d\n", i);
 
         printf("Enter name: ");
-        scanf("%s", name[i]);
+        scanf("%s", name);
 
-        printf("Enter marks (out of 100): ");
-        scanf("%d", &marks[i]);
+        printf("Enter marks: ");
+        scanf("%d", &marks);
 
-        printf("Enter experience (years): ");
-        scanf("%d", &experience[i]);
+        printf("Enter experience: ");
+        scanf("%d", &experience);
 
-        // Simple scoring formula
-        score[i] = marks[i] * 0.7 + experience[i] * 0.3;
-    }
+        // Calculate score
+        score = marks * 0.7 + experience * 0.3;
 
-    // Display results
-    printf("\n--- Candidate Scores ---\n");
-    for(i = 0; i < n; i++) {
-        printf("%s -> Score: %.2f\n", name[i], score[i]);
-    }
+        printf("Score of %s = %.2f\n", name, score);
 
-    // Find best candidate
-    int best = 0;
-    for(i = 1; i < n; i++) {
-        if(score[i] > score[best]) {
-            best = i;
+        // Find best candidate
+        if(score > maxScore) {
+            maxScore = score;
+            strcpy(bestName, name);
         }
     }
 
-    printf("\n Selected Candidate: %s with score %.2f\n", name[best], score[best]);
+    printf("\nSelected Candidate: %s", bestName);
+    printf("\nBest Score: %.2f\n", maxScore);
 
     return 0;
 }
